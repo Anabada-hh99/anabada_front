@@ -44,6 +44,14 @@ export const Input = styled.input`
   ::placeholder {
     font-size: var(--font-regular);
   }
+
+  &::-webkit-autofill,
+  &::-webkit-autofill:hover,
+  &::-webkit-autofill:focus,
+  &::-webkit-autofill:active {
+    background-color: transparent;
+    box-shadow: 0 0 0 30px white inset !important;
+  }
 `;
 
 export const Span = styled.span`

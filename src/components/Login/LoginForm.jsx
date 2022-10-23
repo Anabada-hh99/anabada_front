@@ -11,10 +11,10 @@ import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm() {
   const [loginInfo, _, loginInfoHandler] = useMultipleInput({
-    loginName: '',
+    emailId: '',
     password: '',
   });
-  const { loginName, password } = loginInfo;
+  const { emailId, password } = loginInfo;
   const [isFail, setIsFail] = useState(false);
   const [failText, setFailText] = useState('');
 
@@ -23,7 +23,7 @@ export default function LoginForm() {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    if (loginName === '') {
+    if (emailId === '') {
       setFailText('아이디를 입력해 주세요!');
       setIsFail(true);
       return;
@@ -33,22 +33,22 @@ export default function LoginForm() {
       return;
     }
 
-    //const response = await loginUser(loginInfo);
+    const response = await loginUser(loginInfo);
 
-    // if (response.status) {
-    //   setRefreshToken(response.json.refresh_token);
-    //   dispatch(SET_TOKEN(response.json.access_token));
+    if (response.status) {
+      setRefreshToken(response.headers.refresh_token);
+      dispatch(SET_TOKEN(response.headers.authorization));
 
-    //   return navigate('/');
-    // } else {
-    //   console.log(response.json);
-    // }
+      return navigate('/');
+    } else {
+      console.log(response.headers);
+    }
   };
 
-  console.log(loginInfo);
+  //console.log(loginInfo);
   return (
     <LoginFormST.Box>
-      <form onSubmit={onSubmitHandler}>
+      <form onSubmit={onSubmitHandler} autocomplete='off'>
         <LoginFormST.InputBox>
           <LoginFormST.InputSet>
             <LoginFormST.InputSpan>
@@ -56,8 +56,8 @@ export default function LoginForm() {
             </LoginFormST.InputSpan>
             <LoginFormST.Input
               type='text'
-              name='loginName'
-              value={loginName}
+              name='emailId'
+              value={emailId}
               onChange={loginInfoHandler}
               placeholder='아이디'
             />

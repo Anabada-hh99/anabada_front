@@ -1,10 +1,11 @@
 import instance from '../request';
+import axios from 'axios';
 
 const TIME_OUT = 300 * 1000;
 
 const statusError = {
   status: false,
-  json: {
+  headers: {
     error: ['연결이 원할하지 않습니다. 잠시 후 다시 시도해 주세요'],
   },
 };
@@ -21,54 +22,72 @@ const getPromise = async (requestPromise) => {
 
 export const loginUser = async (credentials) => {
   const requestPromise = () => {
-    return instance.post(`/members/signin`, {
+    return instance.post('/members/login', JSON.stringify(credentials), {
       headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-      body: JSON.stringify(credentials),
     });
-  }; // 나중에 정하자..!
+  };
 
   const data = await getPromise(requestPromise).catch(() => {
     return statusError;
   });
 
+  // const data = await axios.post(
+  //   'https://spring.pyuri.dev/api/members/login',
+  //   JSON.stringify(credentials),
+  //   {
+  //     headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+  //   }
+  // );
+
+  // console.log(
+  //   data.data.success,
+  //   data.status,
+  //   data.data.data.nickname,
+  //   data.headers
+  // );
+
   if (parseInt(Number(data.status) / 100) === 2) {
-    const status = data.ok;
+    const status = data.data.success;
     const code = data.status;
-    const text = await data.text();
-    const json = text.length ? JSON.parse(text) : '';
+    const text = JSON.stringify(data.headers);
+    const headers = text.length ? JSON.parse(text) : '';
 
     return {
       status,
       code,
-      json,
+      headers,
     };
   } else {
     return statusError;
   }
 };
 
-export const logoutUser = async (credentials, accessToken) => {
+export const logoutUser = async (credentials) => {
   const requestPromise = () => {
-    return instance.post(`logout-url`, {
-      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-      body: JSON.stringify(credentials),
-    });
-  }; // 나중에 정하자..!
+    return instance.post(
+      '/auth/members/logout',
+      {},
+      {
+        headers: credentials,
+      }
+    );
+  };
 
   const data = await getPromise(requestPromise).catch(() => {
     return statusError;
   });
-
+  //console.log(data.status);
   if (parseInt(Number(data.status) / 100) === 2) {
-    const status = data.ok;
+    console.log('hello son!');
+    const status = true;
     const code = data.status;
-    const text = await data.text();
-    const json = text.length ? JSON.parse(text) : '';
+    const text = JSON.stringify(data.headers);
+    const headers = text.length ? JSON.parse(text) : '';
 
     return {
       status,
       code,
-      json,
+      headers,
     };
   } else {
     return statusError;
@@ -105,26 +124,25 @@ export const requestToken = async (refreshToken) => {
 
 export const signupUser = async (signupInfo) => {
   const requestPromise = () => {
-    return instance.post(`/members/signup`, {
+    return instance.post('/api/members/signup', JSON.stringify(signupInfo), {
       headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-      body: JSON.stringify(signupInfo),
     });
-  }; // 나중에 정하자..!
+  };
 
   const data = await getPromise(requestPromise).catch(() => {
     return statusError;
   });
 
   if (parseInt(Number(data.status) / 100) === 2) {
-    const status = data.ok;
+    const status = data.data.success;
     const code = data.status;
-    const text = await data.text();
-    const json = text.length ? JSON.parse(text) : '';
+    const text = JSON.stringify(data.headers);
+    const headers = text.length ? JSON.parse(text) : '';
 
     return {
       status,
       code,
-      json,
+      headers,
     };
   } else {
     return statusError;

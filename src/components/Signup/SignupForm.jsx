@@ -41,10 +41,10 @@ export default function SignupForm(props) {
     }
   };
 
-  console.log(signupInfo, pwCheck);
+  //console.log(signupInfo, pwCheck);
   return (
     <SignupFormST.Box>
-      <form onSubmit={onSubmitHandler}>
+      <form onSubmit={onSubmitHandler} autocomplete='off'>
         <SignupFormST.InputBox>
           <SignupFormST.InputSet>
             <SignupFormST.InputSpan>
