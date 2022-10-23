@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   HeaderBox,
   Logo,
@@ -6,7 +6,7 @@ import {
   Login,
   SignUp,
   HeaderSection,
-} from './HeaderStyle';
+} from "./headerStyle";
 
 const Header = () => {
   return (
