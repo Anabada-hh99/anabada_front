@@ -6,6 +6,9 @@ export const Box = styled.div`
   border-radius: 15px;
   box-shadow: 5px 5px 11px 4px rgba(0, 0, 0, 0.76);
   padding: 70px 70px;
+
+  position: absolute;
+  top: 200px;
 `;
 
 export const InputBox = styled.div`

@@ -7,6 +7,7 @@ import * as LoginFormST from './LoginFormStyle';
 import { loginUser } from '../../shared/api/Users';
 import { setRefreshToken } from '../../storage/Cookie';
 import { SET_TOKEN } from '../../redux/modules/AuthSlice';
+import { SET_USER } from '../../redux/modules/UserSlice';
 import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm() {
@@ -38,6 +39,7 @@ export default function LoginForm() {
     if (response.status) {
       setRefreshToken(response.headers.refresh_token);
       dispatch(SET_TOKEN(response.headers.authorization));
+      dispatch(SET_USER(response.userInfo));
 
       return navigate('/');
     } else {
@@ -48,7 +50,7 @@ export default function LoginForm() {
   //console.log(loginInfo);
   return (
     <LoginFormST.Box>
-      <form onSubmit={onSubmitHandler} autocomplete='off'>
+      <form onSubmit={onSubmitHandler} autoComplete='off'>
         <LoginFormST.InputBox>
           <LoginFormST.InputSet>
             <LoginFormST.InputSpan>

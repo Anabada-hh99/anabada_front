@@ -44,7 +44,7 @@ export default function SignupForm(props) {
   //console.log(signupInfo, pwCheck);
   return (
     <SignupFormST.Box>
-      <form onSubmit={onSubmitHandler} autocomplete='off'>
+      <form onSubmit={onSubmitHandler} autoComplete='off'>
         <SignupFormST.InputBox>
           <SignupFormST.InputSet>
             <SignupFormST.InputSpan>

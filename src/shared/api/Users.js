@@ -39,23 +39,20 @@ export const loginUser = async (credentials) => {
   //   }
   // );
 
-  // console.log(
-  //   data.data.success,
-  //   data.status,
-  //   data.data.data.nickname,
-  //   data.headers
-  // );
+  //console.log(data.data.data);
 
   if (parseInt(Number(data.status) / 100) === 2) {
     const status = data.data.success;
     const code = data.status;
     const text = JSON.stringify(data.headers);
     const headers = text.length ? JSON.parse(text) : '';
+    const userInfo = data.data.data;
 
     return {
       status,
       code,
       headers,
+      userInfo,
     };
   } else {
     return statusError;
