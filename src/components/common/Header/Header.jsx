@@ -1,4 +1,7 @@
 import React from 'react';
+import logoPath from '../../../img/logo/Logo.png';
+import placeholderPath from '../../../img/profile_placeholder.png';
+import Profile from '../profile/Profile';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getCookieToken, removeCookieToken } from '../../../storage/Cookie';
@@ -12,8 +15,6 @@ import {
   Trade,
   UserNav,
   Nickname,
-  ProfileBox,
-  ProfileImg,
   HeaderSection,
 } from './HeaderStyle';
 
@@ -24,9 +25,11 @@ const Header = () => {
   const { id, nickname } = useSelector((state) => state.user);
   const refreshToken = getCookieToken();
 
+  console.log(`지금 accessToken: ${accessToken}`);
+  console.log(`지금 refreshToken: ${refreshToken}`);
   async function logout() {
     const data = await logoutUser({
-      authorization: accessToken,
+      access_token: accessToken,
       refresh_token: refreshToken,
     });
     //console.log(data);
@@ -45,9 +48,7 @@ const Header = () => {
   const SectionForLoggedIn = () => {
     return (
       <HeaderSection>
-        <ProfileBox>
-          <ProfileImg src='img/profile_placeholder.png' />
-        </ProfileBox>
+        <Profile src={placeholderPath} />
         <Nickname
           onClick={() => {
             navigate(`/user/${id}`);
@@ -92,6 +93,7 @@ const Header = () => {
       <HeaderContainer>
         <HeaderSection>
           <Logo
+            src={logoPath}
             onClick={() => {
               navigate('/');
             }}

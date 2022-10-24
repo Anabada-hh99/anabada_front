@@ -38,8 +38,7 @@ export const Title = styled.div`
   color: #868b94;
 `;
 
-export const Logo = styled.div`
-  background: url(img/logo/LogoTitle.png);
+export const Logo = styled.img`
   width: 50px;
   height: 12px;
   margin-left: 10px;

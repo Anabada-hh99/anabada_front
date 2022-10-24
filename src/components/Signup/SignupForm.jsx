@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useInput from '../../hooks/useInput';
 import useMultipleInput from '../../hooks/useMultipleInput';
+import { signupUser } from '../../shared/api/Users';
 import Button from '../common/button/Button';
 import * as SignupFormST from './SignupFormStyle';
 
@@ -19,7 +20,7 @@ export default function SignupForm(props) {
 
   const navigate = useNavigate();
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (loginName === '') {
       setFailText('아이디를 입력해 주세요!');
@@ -39,11 +40,22 @@ export default function SignupForm(props) {
       setFailText('전화번호를 입력해 주세요!');
       setIsFail(true);
     }
+
+    const response = await signupUser(signupInfo);
+
+    if (response.status) {
+      console.log('회원가입에 성공했습니다!');
+      return navigate('/');
+    } else {
+      setIsFail(true);
+      setFailText(response.headers.message);
+      console.log(response.headers.message);
+    }
   };
 
   //console.log(signupInfo, pwCheck);
   return (
-    <SignupFormST.Box>
+    <SignupFormST.Box style={{ zIndex: 100 }}>
       <form onSubmit={onSubmitHandler} autoComplete='off'>
         <SignupFormST.InputBox>
           <SignupFormST.InputSet>

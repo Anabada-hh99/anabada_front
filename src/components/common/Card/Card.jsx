@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-export default function Cardbox() {
+export default function Cardbox(props) {
   const navigate = useNavigate();
   return (
     <CardBox>
@@ -46,6 +46,9 @@ const ImgBox = styled.div`
 
   width: 260px;
   height: 260px;
+
+  overflow: hidden;
+  border-radius: 5px;
 `;
 
 const CardBox = styled.div`

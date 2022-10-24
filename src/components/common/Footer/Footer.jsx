@@ -1,4 +1,5 @@
 import React from 'react';
+import logoPath from '../../../img/logo/LogoTitle.png';
 import {
   FooterBox,
   GitIcon,
@@ -20,7 +21,7 @@ const Footer = () => {
       <FooterSection>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Title>항해99 B반 5조 6주차 미니 프로젝트</Title>
-          <Logo />
+          <Logo src={logoPath} />
         </div>
         <BackSection>
           <Back>Back</Back>

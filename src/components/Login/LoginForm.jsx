@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import useMultipleInput from '../../hooks/useMultipleInput';
 import Button from '../common/button/Button';
@@ -12,10 +12,10 @@ import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm() {
   const [loginInfo, _, loginInfoHandler] = useMultipleInput({
-    emailId: '',
+    loginName: '',
     password: '',
   });
-  const { emailId, password } = loginInfo;
+  const { loginName, password } = loginInfo;
   const [isFail, setIsFail] = useState(false);
   const [failText, setFailText] = useState('');
 
@@ -24,7 +24,7 @@ export default function LoginForm() {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    if (emailId === '') {
+    if (loginName === '') {
       setFailText('아이디를 입력해 주세요!');
       setIsFail(true);
       return;
@@ -38,18 +38,20 @@ export default function LoginForm() {
 
     if (response.status) {
       setRefreshToken(response.headers.refresh_token);
-      dispatch(SET_TOKEN(response.headers.authorization));
+      dispatch(SET_TOKEN(response.headers.access_token));
+      console.log(response.userInfo);
       dispatch(SET_USER(response.userInfo));
 
       return navigate('/');
     } else {
-      console.log(response.headers);
+      setIsFail(true);
+      setFailText(response.headers.message);
+      console.log(response.headers.message);
     }
   };
 
-  //console.log(loginInfo);
   return (
-    <LoginFormST.Box>
+    <LoginFormST.Box style={{ zIndex: '100' }}>
       <form onSubmit={onSubmitHandler} autoComplete='off'>
         <LoginFormST.InputBox>
           <LoginFormST.InputSet>
@@ -58,8 +60,8 @@ export default function LoginForm() {
             </LoginFormST.InputSpan>
             <LoginFormST.Input
               type='text'
-              name='emailId'
-              value={emailId}
+              name='loginName'
+              value={loginName}
               onChange={loginInfoHandler}
               placeholder='아이디'
             />

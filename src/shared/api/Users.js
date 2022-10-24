@@ -1,12 +1,14 @@
 import instance from '../request';
-import axios from 'axios';
 
 const TIME_OUT = 300 * 1000;
 
 const statusError = {
   status: false,
   headers: {
-    error: ['연결이 원할하지 않습니다. 잠시 후 다시 시도해 주세요'],
+    error: {
+      code: 'NO_CONNECTION',
+      message: '연결이 원할하지 않습니다. 잠시 후 다시 시도해 주세요',
+    },
   },
 };
 
@@ -22,7 +24,7 @@ const getPromise = async (requestPromise) => {
 
 export const loginUser = async (credentials) => {
   const requestPromise = () => {
-    return instance.post('/members/login', JSON.stringify(credentials), {
+    return instance.post('/members/signin', JSON.stringify(credentials), {
       headers: { 'Content-Type': 'application/json;charset=UTF-8' },
     });
   };
@@ -31,21 +33,16 @@ export const loginUser = async (credentials) => {
     return statusError;
   });
 
-  // const data = await axios.post(
-  //   'https://spring.pyuri.dev/api/members/login',
-  //   JSON.stringify(credentials),
-  //   {
-  //     headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-  //   }
-  // );
-
-  //console.log(data.data.data);
+  console.log(data.data.error, data.data.success, data.status);
 
   if (parseInt(Number(data.status) / 100) === 2) {
     const status = data.data.success;
     const code = data.status;
-    const text = JSON.stringify(data.headers);
+    const text = status
+      ? JSON.stringify(data.headers)
+      : JSON.stringify(data.data.error);
     const headers = text.length ? JSON.parse(text) : '';
+
     const userInfo = data.data.data;
 
     return {
@@ -62,7 +59,7 @@ export const loginUser = async (credentials) => {
 export const logoutUser = async (credentials) => {
   const requestPromise = () => {
     return instance.post(
-      '/auth/members/logout',
+      '/members/logout',
       {},
       {
         headers: credentials,
@@ -91,28 +88,35 @@ export const logoutUser = async (credentials) => {
   }
 };
 
-export const requestToken = async (refreshToken) => {
+export const requestToken = async (credentials) => {
   const requestPromise = () => {
-    return instance.post(`/members/signin`, {
-      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-      body: JSON.stringify({ refresh_token: refreshToken }),
-    });
-  }; // 나중에 정하자..!
+    return instance.post(
+      '/members/reissue',
+      {},
+      {
+        headers: credentials,
+      }
+    );
+  };
 
   const data = await getPromise(requestPromise).catch(() => {
     return statusError;
   });
 
+  console.log(data);
+
   if (parseInt(Number(data.status) / 100) === 2) {
-    const status = data.ok;
+    const status = data.data.success;
     const code = data.status;
-    const text = await data.text();
-    const json = text.length ? JSON.parse(text) : '';
+    const text = status
+      ? JSON.stringify(data.headers)
+      : JSON.stringify(data.data.error);
+    const headers = text.length ? JSON.parse(text) : '';
 
     return {
       status,
       code,
-      json,
+      headers,
     };
   } else {
     return statusError;
@@ -121,7 +125,7 @@ export const requestToken = async (refreshToken) => {
 
 export const signupUser = async (signupInfo) => {
   const requestPromise = () => {
-    return instance.post('/api/members/signup', JSON.stringify(signupInfo), {
+    return instance.post('/members/signup', JSON.stringify(signupInfo), {
       headers: { 'Content-Type': 'application/json;charset=UTF-8' },
     });
   };
@@ -133,7 +137,9 @@ export const signupUser = async (signupInfo) => {
   if (parseInt(Number(data.status) / 100) === 2) {
     const status = data.data.success;
     const code = data.status;
-    const text = JSON.stringify(data.headers);
+    const text = status
+      ? JSON.stringify(data.headers)
+      : JSON.stringify(data.data.error);
     const headers = text.length ? JSON.parse(text) : '';
 
     return {

@@ -3,9 +3,10 @@ import Banner from '../components/common/banner/Banner';
 import Button from '../components/common/button/Button';
 import Layout from '../components/common/Layout/Layout';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const CategorySet = styled.div`
-  width: 100%;
+  width: 1140px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
@@ -25,7 +26,25 @@ const SaleCheckBox = styled.div`
   justify-content: space-around;
   align-items: center;
 `;
+const NavBtn = styled.button`
+  background-color: var(--color-dark-white);
+  border-radius: 5px;
+  font-size: var(--font-medium);
+  font-weight: var(--weight-bold);
+  padding: 10px 64px;
+  margin-top: 20px;
+  margin-left: -200px;
+  font-family: 'Gowun Dodum', sans-serif;
 
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  &:hover {
+    background-color: var(--color-sth-pink);
+    color: var(--color-black);
+  }
+`;
 const CheckInput = styled.input`
   margin-right: 20px;
   width: 25px;
@@ -33,7 +52,16 @@ const CheckInput = styled.input`
   cursor: pointer;
 `;
 
+const TradeText = styled.span`
+  font-size: var(--font-very-large);
+  font-weight: var(--weight-semi-bold);
+  display: inline-block;
+  margin-top: 100px;
+  font-family: 'Gowun Dodum', sans-serif;
+`;
+
 export default function PostListPage(props) {
+  const navigate = useNavigate();
   const categoryRef = useRef();
   const [salesOnly, setSalesOnly] = useState(false);
   const [category, setCategory] = useState(null);
@@ -55,7 +83,7 @@ export default function PostListPage(props) {
   return (
     <Layout>
       <Banner page='Trade'>
-        <section>
+        <section style={{ zIndex: 100 }}>
           <CategorySet ref={categoryRef}>
             <Button type='category' value='스포츠' onClick={onBtnClickHandler}>
               스포츠
@@ -90,9 +118,27 @@ export default function PostListPage(props) {
                 판매중인 게시글만 보기
               </label>
             </SaleCheckBox>
+            <NavBtn
+              onClick={() => {
+                navigate('/posting');
+              }}
+            >
+              게시글 작성하기
+            </NavBtn>
           </CategorySet>
         </section>
       </Banner>
+      <section>
+        <TradeText>
+          {category
+            ? salesOnly
+              ? `판매중인 ${category} 중고 매물`
+              : `모든 ${category} 중고 매물`
+            : salesOnly
+            ? '판매중인 중고 매물'
+            : '모든 중고 매물'}
+        </TradeText>
+      </section>
     </Layout>
   );
 }

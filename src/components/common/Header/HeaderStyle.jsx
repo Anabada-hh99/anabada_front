@@ -32,8 +32,8 @@ export const HeaderSection = styled.div`
   align-items: center;
 `;
 
-export const Logo = styled.div`
-  background: url(img/logo/Logo.png);
+export const Logo = styled.img`
+  /* background: url(img/logo/Logo.png); */
   width: 130px;
   height: 50px;
   margin-right: 5vw;
@@ -54,7 +54,6 @@ export const UserNav = styled.div`
   font-weight: 1000;
   font-family: 'Gowun Dodum', sans-serif;
 `;
-
 export const Nickname = styled.span`
   color: darkslategray;
   margin-left: 30px;
@@ -62,18 +61,4 @@ export const Nickname = styled.span`
   font-size: 20px;
   font-weight: 1000;
   font-family: 'Gowun Dodum', sans-serif;
-`;
-
-export const ProfileBox = styled.div`
-  width: 30px;
-  height: 30px;
-
-  border-radius: 50%;
-  overflow: hidden;
-`;
-
-export const ProfileImg = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 `;
