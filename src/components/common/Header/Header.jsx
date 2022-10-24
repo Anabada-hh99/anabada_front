@@ -12,6 +12,8 @@ import {
   Trade,
   UserNav,
   Nickname,
+  ProfileBox,
+  ProfileImg,
   HeaderSection,
 } from './HeaderStyle';
 
@@ -19,7 +21,7 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { accessToken } = useSelector((state) => state.token);
-  const { nickname } = useSelector((state) => state.user);
+  const { id, nickname } = useSelector((state) => state.user);
   const refreshToken = getCookieToken();
 
   async function logout() {
@@ -39,11 +41,20 @@ const Header = () => {
     }
   }
 
-  console.log(nickname);
+  //console.log(nickname);
   const SectionForLoggedIn = () => {
     return (
       <HeaderSection>
-        <Nickname>{nickname} 님</Nickname>
+        <ProfileBox>
+          <ProfileImg src='img/profile_placeholder.png' />
+        </ProfileBox>
+        <Nickname
+          onClick={() => {
+            navigate(`/user/${id}`);
+          }}
+        >
+          {nickname} 님
+        </Nickname>
         <UserNav
           onClick={() => {
             logout();
@@ -93,6 +104,7 @@ const Header = () => {
             중고거래
           </Trade>
         </HeaderSection>
+
         {accessToken || refreshToken ? (
           <SectionForLoggedIn />
         ) : (

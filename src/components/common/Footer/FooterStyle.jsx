@@ -39,7 +39,7 @@ export const Title = styled.div`
 `;
 
 export const Logo = styled.div`
-  background: url(img/LogoTitle.png);
+  background: url(img/logo/LogoTitle.png);
   width: 50px;
   height: 12px;
   margin-left: 10px;

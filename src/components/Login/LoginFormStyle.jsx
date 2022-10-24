@@ -8,7 +8,7 @@ export const Box = styled.div`
   padding: 70px 70px;
 
   position: absolute;
-  top: 200px;
+  top: 10vh;
 `;
 
 export const InputBox = styled.div`
@@ -43,17 +43,9 @@ export const Input = styled.input`
   height: 50px;
   border: none;
   outline: none;
-
+  font-family: 'Gowun Dodum', sans-serif;
   ::placeholder {
     font-size: var(--font-regular);
-  }
-
-  &::-webkit-autofill,
-  &::-webkit-autofill:hover,
-  &::-webkit-autofill:focus,
-  &::-webkit-autofill:active {
-    background-color: transparent;
-    box-shadow: 0 0 0 30px white inset !important;
   }
 `;
 
@@ -80,6 +72,7 @@ export const ToSignUp = styled(Link)`
   &:active {
     text-decoration: none;
   }
+  font-family: 'Gowun Dodum', sans-serif;
 `;
 
 export const InputSpan = styled.span`

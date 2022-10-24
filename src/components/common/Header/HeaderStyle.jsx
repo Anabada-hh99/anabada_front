@@ -33,7 +33,7 @@ export const HeaderSection = styled.div`
 `;
 
 export const Logo = styled.div`
-  background: url(img/Logo.png);
+  background: url(img/logo/Logo.png);
   width: 130px;
   height: 50px;
   margin-right: 5vw;
@@ -62,4 +62,18 @@ export const Nickname = styled.span`
   font-size: 20px;
   font-weight: 1000;
   font-family: 'Gowun Dodum', sans-serif;
+`;
+
+export const ProfileBox = styled.div`
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+  overflow: hidden;
+`;
+
+export const ProfileImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;

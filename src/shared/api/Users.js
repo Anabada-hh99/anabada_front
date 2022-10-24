@@ -75,7 +75,7 @@ export const logoutUser = async (credentials) => {
   });
   //console.log(data.status);
   if (parseInt(Number(data.status) / 100) === 2) {
-    console.log('hello son!');
+    console.log('Start Logout!');
     const status = true;
     const code = data.status;
     const text = JSON.stringify(data.headers);

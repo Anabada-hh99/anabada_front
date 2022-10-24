@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
 --color-dark-white: #bdbdbd;
 --color-black: #000000;
 --color-light-black: #181818;
+--color-light-orange: #FFA959;
 
 /* Font size */
 --font-very-large: 60px;
@@ -62,6 +63,14 @@ background-color: transparent;
 cursor: pointer;
 border: none;
 outline: none;
+}
+button[name='category'] {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+button[name='categoryActive'] {
+  background-color: var(--color-light-orange);
+  color: var(--color-light-black);
 }
 
 hr {

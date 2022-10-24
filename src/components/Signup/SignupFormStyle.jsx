@@ -8,7 +8,7 @@ export const Box = styled.div`
   padding: 70px 70px;
 
   position: absolute;
-  top: 200px;
+  top: 10vh;
 `;
 
 export const InputBox = styled.div`
@@ -43,7 +43,7 @@ export const Input = styled.input`
   height: 50px;
   border: none;
   outline: none;
-
+  font-family: 'Gowun Dodum', sans-serif;
   ::placeholder {
     font-size: var(--font-regular);
   }
@@ -72,6 +72,7 @@ export const ToBack = styled(Link)`
   &:active {
     text-decoration: none;
   }
+  font-family: 'Gowun Dodum', sans-serif;
 `;
 
 export const InputSpan = styled.span`

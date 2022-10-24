@@ -5,6 +5,16 @@ export default function Button(props) {
   switch (props.type) {
     case 'sign':
       return <ButtonST.Sign>{props.children}</ButtonST.Sign>;
+    case 'category':
+      return (
+        <ButtonST.Category
+          name={props.type}
+          value={props.value}
+          onClick={props.onClick}
+        >
+          {props.children}
+        </ButtonST.Category>
+      );
     default:
       return;
   }

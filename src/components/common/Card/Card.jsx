@@ -1,21 +1,30 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function Cardbox() {
+  const navigate = useNavigate();
   return (
     <CardBox>
       <div>
-        <ImgBox />
+        <ImgBox
+          onClick={() => {
+            navigate(`/trade/0`);
+          }}
+        />
         <TextBox>
           <h2
             style={{
               display: 'block',
-              'text-decoration': 'none',
+              textDecoration: 'none',
               color: '#333',
-              'text-overflow': 'ellipsis',
-              'white-space': 'nowrap',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
               overflow: 'hidden',
               cursor: 'pointer',
+            }}
+            onClick={() => {
+              navigate(`/trade/0`);
             }}
           >
             A380B 바이크 슈퍼라이트 모델
