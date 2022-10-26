@@ -26,36 +26,36 @@ const Footer = () => {
           <Back>Back</Back>
           <BackMember>
             <CrownIcon>
-              <i class="fa-solid fa-crown" color="gold" />
+              <i className='fa-solid fa-crown' color='gold' />
             </CrownIcon>
             정영민
             <GitIcon>
               <a
-                href="https://github.com/celinaym"
-                target="_blank"
-                rel="noopener noreferrer"
+                href='https://github.com/celinaym'
+                target='_blank'
+                rel='noopener noreferrer'
               >
-                <i className="fa-brands fa-github" />
+                <i className='fa-brands fa-github' />
               </a>
             </GitIcon>
             김동현
             <GitIcon>
               <a
-                href="https://github.com/kidonge"
-                target="_blank"
-                rel="noopener noreferrer"
+                href='https://github.com/kidonge'
+                target='_blank'
+                rel='noopener noreferrer'
               >
-                <i className="fa-brands fa-github" />
+                <i className='fa-brands fa-github' />
               </a>
             </GitIcon>
             이호진
             <GitIcon>
               <a
-                href="https://github.com/kaifazhe99"
-                target="_blank"
-                rel="noopener noreferrer"
+                href='https://github.com/kaifazhe99'
+                target='_blank'
+                rel='noopener noreferrer'
               >
-                <i className="fa-brands fa-github" />
+                <i className='fa-brands fa-github' />
               </a>
             </GitIcon>
           </BackMember>
@@ -66,31 +66,31 @@ const Footer = () => {
             김재명
             <GitIcon>
               <a
-                href="https://github.com/JMKiim"
-                target="_blank"
-                rel="noopener noreferrer"
+                href='https://github.com/JMKiim'
+                target='_blank'
+                rel='noopener noreferrer'
               >
-                <i className="fa-brands fa-github" />
+                <i className='fa-brands fa-github' />
               </a>
             </GitIcon>
             이중오
             <GitIcon>
               <a
-                href="https://github.com/jnwnddh"
-                target="_blank"
-                rel="noopener noreferrer"
+                href='https://github.com/jnwnddh'
+                target='_blank'
+                rel='noopener noreferrer'
               >
-                <i className="fa-brands fa-github" />
+                <i className='fa-brands fa-github' />
               </a>
             </GitIcon>
             홍마로
             <GitIcon>
               <a
-                href="https://github.com/formaro"
-                target="_blank"
-                rel="noopener noreferrer"
+                href='https://github.com/formaro'
+                target='_blank'
+                rel='noopener noreferrer'
               >
-                <i className="fa-brands fa-github" />
+                <i className='fa-brands fa-github' />
               </a>
             </GitIcon>
           </FrontMember>

@@ -7,52 +7,59 @@ export const HeaderBox = styled.div`
   width: 100%;
   height: 70px;
   background: white;
+  font-family: 'Do Hyeon', sans-serif;
 
   display: flex;
-  flex-flow: column nowrap;
+  justify-content: center;
+
+  z-index: 999;
+`;
+
+export const HeaderContainer = styled.div`
+  height: 100%;
+  width: 80vw;
+  max-width: 1320px;
+  display: flex;
+  flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  font-family: 'Do Hyeon', sans-serif;
 `;
 
 export const HeaderSection = styled.div`
+  height: 100%;
   display: flex;
-  flex-direction: row;
+  flex-flow: row nowrap;
+  align-items: center;
 `;
 
 export const Logo = styled.div`
   background: url(img/Logo.png);
   width: 130px;
   height: 50px;
-  margin-top: 10px;
-  margin-right: 50px;
+  margin-right: 5vw;
   cursor: pointer;
 `;
 
 export const Trade = styled.div`
   font-size: 30px;
   color: coral;
-  width: 100px;
-  margin-right: 800px;
-  margin-top: 20px;
   cursor: pointer;
 `;
 
-export const Login = styled.div`
+export const UserNav = styled.div`
   color: darkslategray;
-  width: 50px;
-  font-size: large;
-  margin-right: 10px;
-  margin-left: 1300px;
-  margin-top: -40px;
+  margin-left: 30px;
   cursor: pointer;
+  font-size: 20px;
+  font-weight: 1000;
+  font-family: 'Gowun Dodum', sans-serif;
 `;
 
-export const SignUp = styled.div`
-  width: 60px;
+export const Nickname = styled.span`
   color: darkslategray;
-  font-size: large;
-  margin-right: 450px;
-  margin-top: -40px;
+  margin-left: 30px;
   cursor: pointer;
+  font-size: 20px;
+  font-weight: 1000;
+  font-family: 'Gowun Dodum', sans-serif;
 `;

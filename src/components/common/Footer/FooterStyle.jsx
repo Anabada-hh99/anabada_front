@@ -2,11 +2,12 @@ import styled from 'styled-components';
 
 export const FooterBox = styled.div`
   width: 100%;
-  height: 60px;
+  height: 80px;
   background: #181818;
-  
+
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
+  justify-content: center;
   align-items: center;
 
   /* text-decoration: none;
@@ -28,8 +29,7 @@ export const CrownIcon = styled.div`
 export const FooterSection = styled.section`
   display: flex;
   flex-flow: row nowrap;
-  justify-content: center;
-  margin-top: 22px;
+  justify-content: space-around;
 `;
 
 export const Title = styled.div`

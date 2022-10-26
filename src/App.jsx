@@ -1,14 +1,12 @@
 import './App.css';
-import Layout from './componenets/common/Layout/Layout';
 import GlobalStyle from './shared/globalStyle';
+import Router from './shared/router';
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <Layout>
-       
-      </Layout>
+      <Router />
     </>
   );
 }

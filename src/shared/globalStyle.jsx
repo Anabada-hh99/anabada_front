@@ -38,6 +38,10 @@ body {
 margin:0;
 padding:0;
 background-color: var(--color-bg);
+-webkit-user-select:none;
+-moz-user-select:none;
+-ms-user-select:none;
+user-select:none;
 }
 
 section {
@@ -45,6 +49,7 @@ width: 80vw;
 max-width: 1320px;
 display: flex;
 flex-flow: column nowrap;
+align-items: center;
 }
 
 ul {
