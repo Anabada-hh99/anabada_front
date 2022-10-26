@@ -1,9 +1,12 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { CLEAR_POSTS, __getPosts } from '../redux/modules/PostSlice';
 import Banner from '../components/common/banner/Banner';
 import Button from '../components/common/button/Button';
 import Layout from '../components/common/Layout/Layout';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Card from '../components/common/Card/Card';
 
 const CategorySet = styled.div`
   width: 1140px;
@@ -60,14 +63,29 @@ const TradeText = styled.span`
   font-family: 'Gowun Dodum', sans-serif;
 `;
 
+const CardListBox = styled.div`
+  width: 1164px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: left;
+`;
+
 export default function PostListPage(props) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const categoryRef = useRef();
   const [salesOnly, setSalesOnly] = useState(false);
+  let prevSales = false;
   const [category, setCategory] = useState(null);
+  let prevCategory = null;
+
   const onCheckChangeHandler = () => {
     setSalesOnly(!salesOnly);
   };
+
   const onBtnClickHandler = (e) => {
     for (let i = 0; i < 6; i++) {
       categoryRef.current.children[i].name = 'category';
@@ -80,18 +98,66 @@ export default function PostListPage(props) {
     }
   };
 
+  let page = 0;
+  let prevPage = 0;
+  let query = '';
+  // const [query, setQuery] = useState('');
+
+  const dynamicQuery = () => {
+    if (category) {
+      if (salesOnly) {
+        query = `/c?isSaled=true&category=${category}&page=${page}`;
+      } else {
+        query = `/c?isSaled=false&category=${category}&page=${page}`;
+      }
+    } else {
+      if (salesOnly) {
+        query = `?isSaled=true&page=${page}`;
+      } else {
+        query = `?isSaled=false&page=${page}`;
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (prevPage !== page) {
+      // 페이지 변경시
+      console.log('page change');
+      prevPage = page;
+      dynamicQuery();
+      dispatch(__getPosts(query));
+    } else if (prevCategory !== category || prevSales !== salesOnly) {
+      //카테고리,판매여부 변경시
+      console.log('category OR salesOnly change');
+      prevCategory = category;
+      prevSales = salesOnly;
+      dispatch(CLEAR_POSTS());
+      dynamicQuery();
+      dispatch(__getPosts(query));
+    } else {
+      // 마운트시
+      console.log('MOUNT!');
+      dispatch(CLEAR_POSTS());
+      dynamicQuery();
+      console.log(`This is my query: ${query}`);
+      dispatch(__getPosts(query));
+    }
+  }, [page, category, salesOnly]);
+
+  const posts = useSelector((state) => state.post.posts);
+
   return (
     <Layout>
       <Banner page='Trade'>
         <section style={{ zIndex: 100 }}>
           <CategorySet ref={categoryRef}>
-            <Button type='category' value='스포츠' onClick={onBtnClickHandler}>
+            <Button type='category' value='SPORT' onClick={onBtnClickHandler}>
               스포츠
             </Button>
-            <Button type='category' value='의류' onClick={onBtnClickHandler}>
+            <Button type='category' value='CLOTH' onClick={onBtnClickHandler}>
               의류
             </Button>
-            <Button type='category' value='식품' onClick={onBtnClickHandler}>
+            <Button type='category' value='FOOD' onClick={onBtnClickHandler}>
               식품
             </Button>
             <Button
@@ -101,10 +167,10 @@ export default function PostListPage(props) {
             >
               가전제품
             </Button>
-            <Button type='category' value='뷰티' onClick={onBtnClickHandler}>
+            <Button type='category' value='BEAUTY' onClick={onBtnClickHandler}>
               뷰티
             </Button>
-            <Button type='category' value='기타' onClick={onBtnClickHandler}>
+            <Button type='category' value='ETC' onClick={onBtnClickHandler}>
               기타
             </Button>
             <SaleCheckBox>
@@ -138,6 +204,11 @@ export default function PostListPage(props) {
             ? '판매중인 중고 매물'
             : '모든 중고 매물'}
         </TradeText>
+        <CardListBox>
+          {posts.data.map((post, index) => (
+            <Card key={post.id} index={index} post={post} />
+          ))}
+        </CardListBox>
       </section>
     </Layout>
   );

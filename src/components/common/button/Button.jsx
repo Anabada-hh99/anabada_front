@@ -15,6 +15,8 @@ export default function Button(props) {
           {props.children}
         </ButtonST.Category>
       );
+    case 'post':
+      return <ButtonST.Post>{props.children}</ButtonST.Post>;
     default:
       return;
   }

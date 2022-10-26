@@ -2,14 +2,19 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-export default function Cardbox(props) {
+export default function Card(props) {
   const navigate = useNavigate();
+  const priceTag = (number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
+
   return (
-    <CardBox>
+    <CardBox index={props.index}>
       <div>
         <ImgBox
+          url={props.post.imageUrl}
           onClick={() => {
-            navigate(`/trade/0`);
+            navigate(`/trade/${props.post.id}`);
           }}
         />
         <TextBox>
@@ -24,13 +29,13 @@ export default function Cardbox(props) {
               cursor: 'pointer',
             }}
             onClick={() => {
-              navigate(`/trade/0`);
+              navigate(`/trade/${props.post.id}`);
             }}
           >
-            A380B 바이크 슈퍼라이트 모델
+            {props.post.title}
           </h2>
-          <h3>₩120,000</h3>
-          <p>조회수 207회</p>
+          <h3>₩{priceTag(props.post.price)}</h3>
+          <p>조회수 {props.post.count}회</p>
         </TextBox>
       </div>
     </CardBox>
@@ -38,7 +43,11 @@ export default function Cardbox(props) {
 }
 
 const ImgBox = styled.div`
-  background: url('https://cdn.pixabay.com/photo/2017/07/09/07/14/shadow-2486373_960_720.jpg')
+  background-color: var(--color-dark-white);
+  background: url(${(props) =>
+      props.url
+        ? props.url
+        : 'https://cdn.pixabay.com/photo/2017/07/09/07/14/shadow-2486373_960_720.jpg'})
     no-repeat;
   background-position: center;
   background-size: cover;
@@ -54,8 +63,8 @@ const ImgBox = styled.div`
 const CardBox = styled.div`
   font-family: 'Gowun Dodum', sans-serif;
   display: flex;
-
   margin-bottom: 30px;
+  margin-right: ${(props) => ((props.index + 1) % 4 === 0 ? '0px' : '41px')};
 `;
 
 const TextBox = styled.div`

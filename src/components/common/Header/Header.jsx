@@ -25,8 +25,8 @@ const Header = () => {
   const { id, nickname } = useSelector((state) => state.user);
   const refreshToken = getCookieToken();
 
-  console.log(`지금 accessToken: ${accessToken}`);
-  console.log(`지금 refreshToken: ${refreshToken}`);
+  // console.log(`지금 accessToken: ${accessToken}`);
+  // console.log(`지금 refreshToken: ${refreshToken}`);
   async function logout() {
     const data = await logoutUser({
       access_token: accessToken,

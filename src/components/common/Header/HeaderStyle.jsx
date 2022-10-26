@@ -56,7 +56,7 @@ export const UserNav = styled.div`
 `;
 export const Nickname = styled.span`
   color: darkslategray;
-  margin-left: 30px;
+  margin-left: 10px;
   cursor: pointer;
   font-size: 20px;
   font-weight: 1000;

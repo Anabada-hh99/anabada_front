@@ -3,6 +3,7 @@ import HomePath from '../../../img/banner/HomeBanner.jpg';
 import SignPath from '../../../img/banner/SignBanner.jpg';
 import TradePath from '../../../img/banner/TradeBanner.jpg';
 import UserPath from '../../../img/banner/UserBanner.jpg';
+import DetailPath from '../../../img/banner/DetailBanner.jpg';
 import * as BannerST from './BannerStyle';
 
 export default function Banner(props) {
@@ -34,6 +35,13 @@ export default function Banner(props) {
           {props.children}
           <BannerST.BannerImg src={TradePath} />
         </BannerST.TradeBox>
+      );
+    case 'Detail':
+      return (
+        <BannerST.DetailBox>
+          {props.children}
+          <BannerST.BannerImg src={DetailPath} />
+        </BannerST.DetailBox>
       );
     default:
       return;

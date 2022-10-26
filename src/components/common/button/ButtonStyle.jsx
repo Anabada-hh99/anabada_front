@@ -18,3 +18,12 @@ export const Category = styled.button`
   margin-bottom: 10px;
   font-family: 'Gowun Dodum', sans-serif;
 `;
+
+export const Post = styled.button`
+  background-color: var(--color-white);
+  border-radius: 5px;
+  font-size: 80px;
+  font-weight: var(--weight-bold);
+  width: 150px;
+  height: 150px;
+`;

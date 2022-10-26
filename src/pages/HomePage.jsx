@@ -34,13 +34,14 @@ const CardListBox = styled.div`
 `;
 
 export default function Home(props) {
-  const [slogan, setSlogan] = useState('아껴');
+  // const [slogan, setSlogan] = useState('아껴');
+  const [query, setQuery] = useState('');
 
   return (
     <Layout>
       <Banner page='Home'>
         <HomeBannerText>
-          {slogan}쓰는 세상, 모두와 함께 만들어갑니다.
+          아껴쓰는 세상, 모두와 함께 만들어갑니다.
         </HomeBannerText>
       </Banner>
 
@@ -48,14 +49,14 @@ export default function Home(props) {
         <section>
           <HotItemText>현재 인기매물은?</HotItemText>
           <CardListBox>
+            {/* <Card />
             <Card />
             <Card />
             <Card />
             <Card />
             <Card />
             <Card />
-            <Card />
-            <Card />
+            <Card /> */}
           </CardListBox>
         </section>
       </main>

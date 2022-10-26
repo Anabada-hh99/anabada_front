@@ -50,3 +50,14 @@ export const TradeBox = styled.div`
   width: 100%;
   height: 350px;
 `;
+
+export const DetailBox = styled.div`
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 500px;
+`;

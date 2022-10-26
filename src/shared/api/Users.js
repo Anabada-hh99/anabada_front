@@ -42,7 +42,6 @@ export const loginUser = async (credentials) => {
       ? JSON.stringify(data.headers)
       : JSON.stringify(data.data.error);
     const headers = text.length ? JSON.parse(text) : '';
-
     const userInfo = data.data.data;
 
     return {
@@ -103,7 +102,7 @@ export const requestToken = async (credentials) => {
     return statusError;
   });
 
-  console.log(data);
+  //console.log(data);
 
   if (parseInt(Number(data.status) / 100) === 2) {
     const status = data.data.success;
@@ -112,11 +111,13 @@ export const requestToken = async (credentials) => {
       ? JSON.stringify(data.headers)
       : JSON.stringify(data.data.error);
     const headers = text.length ? JSON.parse(text) : '';
+    const userInfo = data.data.data;
 
     return {
       status,
       code,
       headers,
+      userInfo,
     };
   } else {
     return statusError;
