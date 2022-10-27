@@ -33,7 +33,7 @@ export const loginUser = async (credentials) => {
     return statusError;
   });
 
-  console.log(data.data.error, data.data.success, data.status);
+  //console.log(data.data.error, data.data.success, data.status);
 
   if (parseInt(Number(data.status) / 100) === 2) {
     const status = data.data.success;

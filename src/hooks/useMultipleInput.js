@@ -5,7 +5,11 @@ const useMultipleInput = (initObj) => {
 
   const handler = (e) => {
     const { value, name } = e.target;
-    setObj({ ...obj, [name]: value });
+    if (name === 'price') {
+      setObj({ ...obj, [name]: parseInt(value) });
+    } else {
+      setObj({ ...obj, [name]: value });
+    }
   };
 
   return [obj, setObj, handler];

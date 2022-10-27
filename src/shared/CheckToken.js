@@ -28,12 +28,12 @@ export function CheckToken(key) {
           setIsAuth('Success');
         } else {
           const response = await requestToken({
-            access_token: accessToken,
+            authorization: accessToken,
             refresh_token: refreshToken,
           });
           //console.log(response);
           if (response.status) {
-            const accessToken = response.headers.access_token;
+            const accessToken = response.headers.authorization;
             removeCookieToken();
             setRefreshToken(response.headers.refresh_token);
             dispatch(SET_TOKEN(accessToken));

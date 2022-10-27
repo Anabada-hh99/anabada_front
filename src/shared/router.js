@@ -9,6 +9,7 @@ import PostDetailPage from '../pages/PostDetailPage';
 import PostListPage from '../pages/PostListPage';
 import GlobalRoute from './GlobalRoute';
 import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 
 const Router = () => {
   return (
@@ -16,15 +17,24 @@ const Router = () => {
       <Routes>
         <Route element={<GlobalRoute />}>
           <Route path='/' element={<HomePage />} />
-          <Route path='/login' element={<LoginPage />} />
+          <Route
+            path='/login'
+            element={
+              <PublicRoute>
+                <LoginPage />
+              </PublicRoute>
+            }
+          />
           <Route path='/signup' element={<SignupPage />} />
           <Route path='/trade' element={<PostListPage />} />
-          <Route path='/posting' element={<PostingPage />} />
+
           <Route path='/trade/:postId' element={<PostDetailPage />} />
           <Route path='/user/:userId' element={<UserPage />} />
         </Route>
 
-        <Route element={<PrivateRoute />}></Route>
+        <Route element={<PrivateRoute />}>
+          <Route path='/posting' element={<PostingPage />} />
+        </Route>
 
         {/* <Route path='*' element={<HomePage />} /> */}
       </Routes>

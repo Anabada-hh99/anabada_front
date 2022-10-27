@@ -10,6 +10,7 @@ export default function Card(props) {
 
   return (
     <CardBox index={props.index}>
+      <SoldOut isSold={!props.post.state}>판매완료!</SoldOut>
       <div>
         <ImgBox
           url={props.post.imageUrl}
@@ -61,6 +62,7 @@ const ImgBox = styled.div`
 `;
 
 const CardBox = styled.div`
+  position: relative;
   font-family: 'Gowun Dodum', sans-serif;
   display: flex;
   margin-bottom: 30px;
@@ -72,8 +74,15 @@ const TextBox = styled.div`
   overflow: hidden;
 `;
 
-// const TextLine = styled.div`
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-// `;
+const SoldOut = styled.span`
+  position: absolute;
+  background-color: #f44236;
+  font-family: 'Gowun Dodum', sans-serif;
+  color: var(--color-white);
+  padding: 10px 20px;
+  display: ${(props) => (props.isSold ? 'default' : 'none')};
+
+  border-radius: 5px;
+  top: -10px;
+  right: -10px;
+`;

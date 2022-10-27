@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Banner from '../components/common/banner/Banner';
 import Layout from '../components/common/Layout/Layout';
 import Card from '../components/common/Card/Card';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { __getPosts, CLEAR_POSTS } from '../redux/modules/PostSlice';
 
 const HomeBannerText = styled.span`
   color: var(--color-white);
@@ -34,29 +36,31 @@ const CardListBox = styled.div`
 `;
 
 export default function Home(props) {
-  // const [slogan, setSlogan] = useState('아껴');
-  const [query, setQuery] = useState('');
+  const [slogan, setSlogan] = useState('아껴');
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(CLEAR_POSTS());
+    dispatch(__getPosts('/p'));
+  }, []);
+  const posts = useSelector((state) => state.post.posts);
 
   return (
     <Layout>
       <Banner page='Home'>
         <HomeBannerText>
-          아껴쓰는 세상, 모두와 함께 만들어갑니다.
+          {slogan}쓰는 세상, 모두와 함께 만들어갑니다.
         </HomeBannerText>
       </Banner>
 
       <main>
         <section>
-          <HotItemText>현재 인기매물은?</HotItemText>
+          <HotItemText>TOP 4 - 현재 인기매물은?</HotItemText>
           <CardListBox>
-            {/* <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card /> */}
+            {posts.data.map((post, index) => (
+              <Card key={post.id} index={index} post={post} />
+            ))}
           </CardListBox>
         </section>
       </main>

@@ -16,7 +16,26 @@ export default function Button(props) {
         </ButtonST.Category>
       );
     case 'post':
-      return <ButtonST.Post>{props.children}</ButtonST.Post>;
+      return (
+        <ButtonST.Post disabled={props.disabled} onClick={props.onClick}>
+          {props.children}
+        </ButtonST.Post>
+      );
+    case 'CommentSubmit':
+      return (
+        <ButtonST.CommentSubmit
+          disabled={props.disabled}
+          onClick={props.onClick}
+        >
+          {props.children}
+        </ButtonST.CommentSubmit>
+      );
+    case 'Comment':
+      return (
+        <ButtonST.Comment disabled={props.disabled} onClick={props.onClick}>
+          {props.children}
+        </ButtonST.Comment>
+      );
     default:
       return;
   }

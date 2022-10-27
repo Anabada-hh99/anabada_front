@@ -81,12 +81,16 @@ export default function PostListPage(props) {
   let prevSales = false;
   const [category, setCategory] = useState(null);
   let prevCategory = null;
+  const obsRef = useRef(null);
+  const [page, setPage] = useState(0);
 
   const onCheckChangeHandler = () => {
+    setPage(0);
     setSalesOnly(!salesOnly);
   };
 
   const onBtnClickHandler = (e) => {
+    setPage(0);
     for (let i = 0; i < 6; i++) {
       categoryRef.current.children[i].name = 'category';
     }
@@ -98,7 +102,7 @@ export default function PostListPage(props) {
     }
   };
 
-  let page = 0;
+  //let page = 0;
   let prevPage = 0;
   let query = '';
   // const [query, setQuery] = useState('');
@@ -122,13 +126,13 @@ export default function PostListPage(props) {
   useEffect(() => {
     if (prevPage !== page) {
       // 페이지 변경시
-      console.log('page change');
+      //console.log('page change');
       prevPage = page;
       dynamicQuery();
       dispatch(__getPosts(query));
     } else if (prevCategory !== category || prevSales !== salesOnly) {
       //카테고리,판매여부 변경시
-      console.log('category OR salesOnly change');
+      //console.log('category OR salesOnly change');
       prevCategory = category;
       prevSales = salesOnly;
       dispatch(CLEAR_POSTS());
@@ -136,13 +140,28 @@ export default function PostListPage(props) {
       dispatch(__getPosts(query));
     } else {
       // 마운트시
-      console.log('MOUNT!');
+      //console.log('MOUNT!');
       dispatch(CLEAR_POSTS());
       dynamicQuery();
-      console.log(`This is my query: ${query}`);
+      //console.log(`This is my query: ${query}`);
       dispatch(__getPosts(query));
     }
   }, [page, category, salesOnly]);
+
+  const _onIntersect = ([entry]) => {
+    if (entry.isIntersecting) {
+      //console.log('intersecting!!');
+      setPage((prevent) => prevent + 1);
+    }
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(_onIntersect, { threshold: 1 });
+    if (obsRef.current) observer.observe(obsRef.current);
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   const posts = useSelector((state) => state.post.posts);
 
@@ -160,11 +179,7 @@ export default function PostListPage(props) {
             <Button type='category' value='FOOD' onClick={onBtnClickHandler}>
               식품
             </Button>
-            <Button
-              type='category'
-              value='가전제품'
-              onClick={onBtnClickHandler}
-            >
+            <Button type='category' value='HOME' onClick={onBtnClickHandler}>
               가전제품
             </Button>
             <Button type='category' value='BEAUTY' onClick={onBtnClickHandler}>
@@ -205,9 +220,14 @@ export default function PostListPage(props) {
             : '모든 중고 매물'}
         </TradeText>
         <CardListBox>
-          {posts.data.map((post, index) => (
-            <Card key={post.id} index={index} post={post} />
-          ))}
+          {posts.data.map ? (
+            posts.data.map((post, index) => (
+              <Card key={post.id} index={index} post={post} />
+            ))
+          ) : (
+            <></>
+          )}
+          <div ref={obsRef} style={{ width: '50px' }}></div>
         </CardListBox>
       </section>
     </Layout>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../../components/common/Layout/Layout';
 import {
   ImgBox,
@@ -16,9 +17,15 @@ import {
   Column,
   UploadButton,
 } from './PostingPageStyle';
+import useMultipleInput from '../../hooks/useMultipleInput';
+import { __createPost } from '../../redux/modules/PostSlice';
+import { useNavigate } from 'react-router-dom';
+import { getCookieToken } from '../../storage/Cookie';
 
 export default function Posting() {
   const [fileImage, setFileImage] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const saveFileImage = (file) => {
     setFileImage(URL.createObjectURL(file));
@@ -32,9 +39,36 @@ export default function Posting() {
     saveFileImage(e.target.files[0]);
   };
 
+  const [postInfo, setPostInfo, postChangeHandler] = useMultipleInput({
+    title: '',
+    content: '',
+    price: 0,
+    imageUrl:
+      'https://cdn.pixabay.com/photo/2017/06/30/11/05/gift-box-2458012_960_720.jpg',
+    category: 'ETC',
+    state: true,
+  });
+
+  const { accessToken } = useSelector((state) => state.token);
+  const refreshToken = getCookieToken();
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      __createPost({
+        Authorization: accessToken,
+        refresh_token: refreshToken,
+        body: postInfo,
+      })
+    );
+    navigate('/trade');
+  };
+
+  //console.log(postInfo);
+
   return (
     <Layout>
-      <ProductUpload>
+      <ProductUpload onSubmit={onSubmitHandler}>
         <ImgBox>
           <input
             type='file'
@@ -43,6 +77,7 @@ export default function Posting() {
             accept='image/*'
             style={{ display: 'none' }}
             onChange={onImageChangeHandler}
+            value={fileImage}
           />
 
           <ImgLabel htmlFor='choosePhoto'>이미지 등록</ImgLabel>
@@ -53,23 +88,39 @@ export default function Posting() {
           {/* 상품 제목 입력 부분 */}
           <ProductTitle>
             제목<div style={{ color: '#FF3D00' }}>*</div>
-            <TitleInput type='text' placeholder='상품 제목을 입력하세요.' />
+            <TitleInput
+              type='text'
+              name='title'
+              value={postInfo.title}
+              onChange={postChangeHandler}
+              placeholder='상품 제목을 입력하세요.'
+            />
           </ProductTitle>
           <ProductCategory>
             범주<div style={{ color: '#FF3D00' }}>*</div>
-            <CategorySelect>
-              <option value='스포츠'>스포츠</option>
-              <option value='의류'>의류</option>
-              <option value='식품'>식품</option>
-              <option value='가전제품'>가전제품</option>
-              <option value='뷰티'>뷰티</option>
-              <option value='기타'>기타</option>
+            <CategorySelect
+              name='category'
+              value={postInfo.category}
+              onChange={postChangeHandler}
+            >
+              <option value='SPORT'>스포츠</option>
+              <option value='CLOTH'>의류</option>
+              <option value='FOOD'>식품</option>
+              <option value='HOME'>가전제품</option>
+              <option value='BEAUTY'>뷰티</option>
+              <option value='ETC'>기타</option>
             </CategorySelect>
           </ProductCategory>
           {/* 가격 입력 부분 */}
           <ProductPrice>
             가격<div style={{ color: '#FF3D00' }}>*</div>
-            <PriceInput type='number' placeholder='숫자만 입력해 주세요.' />
+            <PriceInput
+              type='number'
+              name='price'
+              value={postInfo.price}
+              onChange={postChangeHandler}
+              placeholder='숫자만 입력해 주세요.'
+            />
           </ProductPrice>
 
           {/* 설명 입력 부분 */}
@@ -77,6 +128,9 @@ export default function Posting() {
             설명<div style={{ color: '#FF3D00' }}>*</div>
             <DescInput
               type='text'
+              name='content'
+              value={postInfo.content}
+              onChange={postChangeHandler}
               placeholder='구매자에게 필요한 정보를 꼭 포함해 주세요.'
             />
           </ProductDesc>

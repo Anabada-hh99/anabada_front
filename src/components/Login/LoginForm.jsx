@@ -35,10 +35,11 @@ export default function LoginForm() {
     }
 
     const response = await loginUser(loginInfo);
-
+    console.log(response);
     if (response.status) {
       setRefreshToken(response.headers.refresh_token);
-      dispatch(SET_TOKEN(response.headers.access_token));
+      console.log(response.headers.authorization);
+      dispatch(SET_TOKEN(response.headers.authorization));
       console.log(response.userInfo);
       dispatch(SET_USER(response.userInfo));
 

@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
 export const Box = styled.div`
-  width: 40px;
-  height: 40px;
+  width: ${(props) => (props.width ? props.width : '30px')};
+  height: ${(props) => (props.width ? props.width : '30px')};
 
+  background-color: var(--color-white);
   border-radius: 50%;
   overflow: hidden;
 `;

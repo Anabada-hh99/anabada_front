@@ -22,14 +22,14 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { accessToken } = useSelector((state) => state.token);
-  const { id, nickname } = useSelector((state) => state.user);
+  const { memberId, nickname } = useSelector((state) => state.user);
   const refreshToken = getCookieToken();
 
   // console.log(`지금 accessToken: ${accessToken}`);
   // console.log(`지금 refreshToken: ${refreshToken}`);
   async function logout() {
     const data = await logoutUser({
-      access_token: accessToken,
+      Authorization: accessToken,
       refresh_token: refreshToken,
     });
     //console.log(data);
@@ -51,7 +51,7 @@ const Header = () => {
         <Profile src={placeholderPath} />
         <Nickname
           onClick={() => {
-            navigate(`/user/${id}`);
+            navigate(`/user/${memberId}`);
           }}
         >
           {nickname} 님
