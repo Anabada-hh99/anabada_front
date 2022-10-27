@@ -5,10 +5,10 @@ export const __getComments = createAsyncThunk(
   'GET_COMMENTS',
   async (arg, thunkAPI) => {
     try {
-      console.log('IM GONNA REQUEST COMMENTS DATA...');
-      console.log(`with this final api url: /comments/${arg}`);
+      //console.log('IM GONNA REQUEST COMMENTS DATA...');
+      //console.log(`with this final api url: /comments/${arg}`);
       const { data } = await instance.get(`/comments/${arg}`);
-      console.log(data);
+      //console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code);

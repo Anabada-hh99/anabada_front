@@ -38,9 +38,9 @@ export default function LoginForm() {
     console.log(response);
     if (response.status) {
       setRefreshToken(response.headers.refresh_token);
-      console.log(response.headers.authorization);
+      //console.log(response.headers.authorization);
       dispatch(SET_TOKEN(response.headers.authorization));
-      console.log(response.userInfo);
+      //console.log(response.userInfo);
       dispatch(SET_USER(response.userInfo));
 
       return navigate('/');

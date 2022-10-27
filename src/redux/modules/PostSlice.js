@@ -5,7 +5,7 @@ export const __getPost = createAsyncThunk('GET_POST', async (arg, thunkAPI) => {
   try {
     //console.log('IM GONNA REQUEST ONE POST DATA...');
     const { data } = await instance.get(`/post/${arg}`);
-    console.log(data);
+    //console.log(data);
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error.code);
